@@ -31,7 +31,7 @@ require "config.php";
 <body>
 <div class="site">
 
-    <div class="spacer" style="height: 20px;">
+    <div class="spacer">
         <?php
             logo();
         ?>
@@ -63,12 +63,32 @@ require "config.php";
     <div class="spacer" style="height: 20px"></div>
 
     <div class="body">
-        <div class="about">
+        <div class="about" style="height: 540px;">
             <h3 class="about">Quasar is a RSS Feed reader.</br></br>It picks up new posts from a variety of websites.</br></br> By browsing through the categories, you can select which one interests you.
-            </br></br>By becoming a member you are able to save links to the articles that you would like to read at a later date.</br></br>
-            By becoming a member you are also able to comment on the articles you have read and give your feed back to other users.
+            </br></br>By becoming a member you are able to:
+                <ul style="margin-top: 5px;">
+                    <li>
+                        Save articles to read later
+                    </li>
+                    <li>
+                        Comment on articles
+                    </li>
+                    <li>
+                        Become friends with other members
+                    </li>
+                    <li>
+                        Recommend articles to your friends
+                    </li>
+                </ul>
+
+
+
+
             </h3>
+            </br></br></br>
+            <center>
             <h3 class="us">Quasar was developed by Louis Ciampanelli, Costas Vhramis, and Michael Brown @ Iona College in 2014</h3>
+            </center>
 
         </div>
     </div>

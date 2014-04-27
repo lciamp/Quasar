@@ -9,7 +9,7 @@ $db = dbConnect();
 if(isset($_GET['category']))
 {
     $cat = $_GET['category'];
-    $stmt = "SELECT * FROM articles WHERE cat='".$cat."' ORDER BY pubDate DESC";
+    $stmt = "SELECT * FROM articles WHERE cat='".$cat."' ORDER BY pubDate DESC LIMIT 20";
     //echo $cat . " worked";
 }
 elseif(isset($_GET['view']))
@@ -37,7 +37,7 @@ elseif(isset($_GET['tag']))
     $tag = $_GET['tag'];
     if($tag == "programming")
         $tag = "prog";
-    $stmt = "SELECT * FROM articles WHERE tag='".$tag."' ORDER BY pubDate DESC";
+    $stmt = "SELECT * FROM articles WHERE tag='".$tag."' ORDER BY pubDate DESC LIMIT 20";
     //echo $tag . " worked";
 }
 else
@@ -89,9 +89,9 @@ if(isset($_POST['search']))
     <div class="site">
 
 
-        <div class="spacer" style="height: 20px;">
+        <div class="spacer" style="height: 1px;">
             <?php
-            logo();
+                logo();
             ?>
             <div class="ajax">
                 <form  action="index.php" method="POST" enctype="multipart/form-data">

@@ -36,7 +36,7 @@ if(!$name)
 <body>
 <div class="site">
 
-    <div class="spacer" style="height: 20px;">
+    <div class="spacer" >
         <?php
             logo();
         ?>

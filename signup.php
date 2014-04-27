@@ -140,7 +140,7 @@ if($signup)
 
 <body>
 <div class="site">
-    <div class="spacer" style="height: 20px;">
+    <div class="spacer">
         <?
             logo();
         ?>
@@ -169,7 +169,7 @@ if($signup)
             buildMenu();
         ?>
 
-    <div class="spacer"></div>
+    <div class="spacer"  style="height: 20px;"></div>
 
     <div class="body">
 

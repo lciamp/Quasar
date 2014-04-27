@@ -5,7 +5,7 @@ require "config.php";
 
 session_start();
 
-$post = strip_tags($_POST['post']);
+$post = $_POST['post'];
 $name = $_SESSION['username'];
 $comment = strip_tags($_POST['comment']);
 $buttonPress = $_POST['submit'];

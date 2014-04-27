@@ -116,9 +116,9 @@ $db->close()
 
     <div class="site">
 
-        <div class="spacer" style="height: 20px;">
-            <?
-            logo();
+        <div class="spacer">
+            <?php
+                logo();
             ?>
             <div class="ajax">
                 <form  action="index.php" method="POST" enctype="multipart/form-data">
@@ -146,7 +146,7 @@ $db->close()
                 ?>
 
 
-        <div class="spacer"></div>
+        <div class="spacer" style="height: 20px;"></div>
 
         <div class="body">
                 <form action="login.php" method="POST">

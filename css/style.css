@@ -13,7 +13,7 @@ div.site
 
     cursor:default;
     width: 1024px;
-    height: 550px;
+    height: 660px;
     margin: auto;
     padding: 0;
     align-content: center;
@@ -52,8 +52,8 @@ div.menu
 div.ajax
 {
     width: 300px;
-    margin-top: 40px;
-    margin-right: 50px;
+    margin-top: 16px;
+    margin-right: 44px;
     border-collapse: collapse;
     height: 30px;
     position: relative;
@@ -64,7 +64,7 @@ div.ajax
 div.spacer
 {
     position: relative;
-    height: 20px;
+    height: 1px;
     width: 1003px;
     z-index: 100;
 }
@@ -76,7 +76,7 @@ div.body
     border: 2px solid #000000;
     margin: 20px;
     width: 964px;
-    height: 500px;
+    height: 540px;
     padding: 0 20px 0 0;
     background-color: white;
     position: relative;
@@ -90,8 +90,8 @@ div.innerbody
     z-index: 99;
     border-radius: 15px;
     margin: 2px;
-    width: 960px;
-    height: 496px;
+    width: 964px;
+    height: 536px;
     padding: 0 10px;
     background-color: white;
     position: relative;
@@ -192,7 +192,7 @@ h1.page
 {
     font-family: verdana, monospace;
     font-size: 40px;
-    color: #224d99;
+    color: #7f8c8d;
     text-align: center;
 }
 
@@ -212,7 +212,7 @@ h2.title
     font-size: 30px;
     margin-top: 0;
     margin-bottom: 5px;
-    color:#224d99 ;
+    color: #34495e;
     border-collapse: collapse;
 }
 h2.titlePost
@@ -223,7 +223,7 @@ h2.titlePost
     font-size: 32px;
     margin-top: 0;
     margin-bottom: 5px;
-    color:#224d99 ;
+    color: #7f8c8d;
     border-collapse: collapse;
 }
 h2.titleSaved
@@ -234,7 +234,7 @@ h2.titleSaved
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 5px;
-    color:#224d99 ;
+    color: #7f8c8d;
     border-collapse: collapse;
 }
 h2.friend
@@ -245,7 +245,7 @@ h2.friend
     font-size: 24px;
     margin-top: 0;
     margin-bottom: 5px;
-    color:#2772d0 ;
+    color: #34495e;
     border-collapse: collapse;
 }
 
@@ -257,7 +257,7 @@ h2.rec
     font-size: 24px;
     margin-top: 0;
     margin-bottom: 5px;
-    color:#224d99 ;
+    color: #7f8c8d;
     border-collapse: collapse;
 }
 
@@ -273,8 +273,9 @@ h3.about
 {
     font-family: Verdana, monospace;
     font-size: 25px;
-    color: #224d99;
+    color: #34495e;
 }
+
 h3.ajax
 {
     font-family: verdana, monospace;
@@ -295,21 +296,33 @@ h2.hello
 {
     font-family: verdana, monospace;
     font-size: 16px;
-    color: #2772d0;
+    color: #34495e;
 }
 
 h2.as
 {
     font-family: verdana, monospace;
     font-size: 20px;
-    color: #224d99;
+    color: #7f8c8d;
     display: inline;
 }
+
+
+h2.rec
+{
+    font-family: verdana, monospace;
+    font-size: 20px;
+    color: #34495e;
+    display: inline;
+    padding-left: 2px;
+}
+
+
 h2.user
 {
     font-family: verdana, monospace;
     font-size: 20px;
-    color: #2772d0;
+    color: #34495e;
     display: inline;
 }
 div.comment_title
@@ -324,7 +337,7 @@ h2.comment
 {
     font-family: verdana, monospace;
     font-size: 20px;
-    color: #2772d0;
+    color: #7f8c8d;
     border-collapse: collapse;
     display: inline;
 }
@@ -340,20 +353,20 @@ td.tag
 {
     font-family: verdana, monospace;
     font-size: 18px;
-    color: #224d99;
+    color: #7f8c8d;
 }
 td.comment
 {
     font-family: verdana, monospace;
     font-size: 18px;
-    color: #63b8ee;
+    color: #bdc3c7;
 }
 
 h2.profile
 {
     font-family: verdana, monospace;
     font-size: 18px;
-    color: #2772d0;
+    color: #34495e;
     display: inline;
 
 }
@@ -407,7 +420,7 @@ table.menu
 {
     border-collapse: collapse;
     margin:auto;
-    background-color: #2772d0;
+    background-color: #34495e;
     width: 1024px;
     height: 30px;
     text-align: center;
@@ -445,35 +458,35 @@ td.login
 
 a.menu:link{color: white; text-decoration: none;}
 a.menu:visited{color: white; text-decoration: none;}
-a.menu:hover{color: #2772d0;text-decoration: none;}
+a.menu:hover{color: #34495e;text-decoration: none;}
 
-a.user:link{color: #2772d0;text-decoration: none;}
-a.user:visited{color: #2772d0;text-decoration: none;}
-a.user:hover{color: #2772d0;text-decoration: none;}
+a.user:link{color: #34495e;text-decoration: none;}
+a.user:visited{color: #34495e;text-decoration: none;}
+a.user:hover{color: #34495e;text-decoration: none;}
 
-a.friend:link{color: #2772d0;text-decoration: none;}
-a.friend:visited{color: #2772d0;text-decoration: none;}
-a.friend:hover{color: #2772d0;text-decoration: none;}
+a.friend:link{color: #34495e;text-decoration: none;}
+a.friend:visited{color: #34495e;text-decoration: none;}
+a.friend:hover{color: #34495e;text-decoration: none;}
 
-a.rec:link{color: #224d99;text-decoration: none;}
-a.rec:visited{color: #224d99;text-decoration: none;}
-a.rec:hover{color: #224d99;text-decoration: none;}
+a.rec:link{color: #2980b9;text-decoration: none;}
+a.rec:visited{color: #2980b9;text-decoration: none;}
+a.rec:hover{color: #2980b9;text-decoration: none;}
 
-a.rss:link{color: #224d99; text-decoration: none;}
-a.rss:visited{color: #224d99; text-decoration: none;}
-a.rss:hover{color: #224d99;text-decoration: none;}
+a.rss:link{color: #2980b9; text-decoration: none;}
+a.rss:visited{color: #2980b9; text-decoration: none;}
+a.rss:hover{color: #2980b9;text-decoration: none;}
 
-a.comments:link{color: #63b8ee; text-decoration: none;}
-a.comments:visited{color: #63b8ee; text-decoration: none;}
-a.comments:hover{color: #63b8ee;text-decoration: none;}
+a.comments:link{color: #7f8c8d; text-decoration: none;}
+a.comments:visited{color: #7f8c8d; text-decoration: none;}
+a.comments:hover{color: #7f8c8d;text-decoration: none;}
 
-a.tag:link{color: #224d99; text-decoration: none;}
-a.tag:visited{color: #224d99; text-decoration: none;}
-a.tag:hover{color: #224d99;text-decoration: none;}
+a.tag:link{color: #bdc3c7; text-decoration: none;}
+a.tag:visited{color: #bdc3c7; text-decoration: none;}
+a.tag:hover{color: #bdc3c7;text-decoration: none;}
 
 h1.login
 {
-    color: #2772d0;
+    color: #34495e;
     margin: 0;
     vertical-align: bottom;
     border-collapse: collapse;
@@ -527,13 +540,13 @@ h4.admin
 
 /* BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS BUTTONS */
 .button {
-    -moz-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    -webkit-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    box-shadow:inset 0px -50px 0px 0px #2773d0;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
-    background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+    -moz-box-shadow:inset 0px -50px 0px 0px #34495e;
+    -webkit-box-shadow:inset 0px -50px 0px 0px #34495e;
+    box-shadow:inset 0px -50px 0px 0px #34495e;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #34495e), color-stop(1, #468ccf) );
+    background:-moz-linear-gradient( center top, #34495e 5%, #468ccf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
-    background-color:#63b8ee;
+    background-color:#34495e;
     -webkit-border-top-left-radius:10px;
     -moz-border-radius-topleft:10px;
     border-top-left-radius:10px;
@@ -563,23 +576,22 @@ h4.admin
 }
 .button:hover {
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#224d99', endColorstr='#224d99');
-    background-color:#224d99;
+    background-color: #7f8c8d;
 }.button:active {
      position:relative;
      top:1px;
-     background-color:#224d99;
+     background-color: #7f8c8d;
  }
 /* This button was generated using CSSButtonGenerator.com */
 
 
 .save {
-    -moz-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    -webkit-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    box-shadow:inset 0px -50px 0px 0px #2773d0;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
-    background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+    -moz-box-shadow:inset 0px -50px 0px 0px #34495e;
+    -webkit-box-shadow:inset 0px -50px 0px 0px #34495e;
+    box-shadow:inset 0px -50px 0px 0px #34495e;
+
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
-    background-color:#63b8ee;
+    background-color:#34495e;
     -webkit-border-top-left-radius:37px;
     -moz-border-radius-topleft:37px;
     border-top-left-radius:37px;
@@ -609,8 +621,8 @@ h4.admin
 
 }
 .save:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #2773d0), color-stop(1, #7cacde) );
-    background:-moz-linear-gradient( center top, #2773d0 5%, #7cacde 100% );
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #34495e), color-stop(1, #7cacde) );
+    background:-moz-linear-gradient( center top, #34495e 5%, #7cacde 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2ab1e', endColorstr='#f0c911');
     background-color:#7cacde;
 }.save:active {
@@ -716,13 +728,12 @@ h4.admin
 
 
 .friendButton {
-    -moz-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    -webkit-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    box-shadow:inset 0px -50px 0px 0px #2773d0;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
-    background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+    -moz-box-shadow:inset 0px -50px 0px 0px #34495e;
+    -webkit-box-shadow:inset 0px -50px 0px 0px #34495e;
+    box-shadow:inset 0px -50px 0px 0px #34495e;
+
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
-    background-color:#63b8ee;
+    background-color:#34495e;
     -webkit-border-top-left-radius:10px;
     -moz-border-radius-topleft:10px;
     border-top-left-radius:10px;
@@ -736,7 +747,7 @@ h4.admin
     -moz-border-radius-bottomleft:10px;
     border-bottom-left-radius:10px;
     text-indent:0;
-    border:1px solid #3866a3;
+    border:1px solid #34495e;
     display:inline-block;
     color:#ffffff;
     font-family:Verdana;
@@ -752,11 +763,11 @@ h4.admin
 }
 .friendButton:hover {
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#224d99', endColorstr='#224d99');
-    background-color:#224d99;
+    background-color:#34495e;
 }.friendButton:active {
      position:relative;
      top:1px;
-     background-color:#224d99;
+     background-color:#34495e;
  }
 /* This button was generated using CSSButtonGenerator.com */
 
@@ -841,7 +852,7 @@ nav ul li:hover > ul
 nav ul
 {
     z-index: 5000;
-    background: #2772d0;
+    background: #34495e;
     margin: 0;
     font-family: verdana, monospace;
     font-size: 20px;
@@ -864,7 +875,7 @@ nav ul li
     z-index: 5000;
     float: left;
     width: 256px;
-    background-color: #2772d0;
+    background-color: #34495e;
     border-radius: 15px;
 
     padding: 0;
@@ -875,7 +886,7 @@ nav ul li
 nav ul li:hover
 {
     z-index: 5000;
-    background: #224d99;
+    background: #7f8c8d;
     border-radius: 15px;
 }
 
@@ -908,7 +919,7 @@ nav ul li a
 nav ul ul
 {
     z-index: 5000;
-    background: #2772d0;
+    background: #34495e;
     padding: 0;
     position: absolute;
     top: 100%;
@@ -920,7 +931,7 @@ nav ul ul li
     width: 256px;
     font-family: verdana, monospace;
     z-index: 1052;
-    background-color: #5fa0ff;
+    background-color: #bdc3c7;
     position: relative;
 }
 
@@ -946,8 +957,8 @@ div.comment
     margin: 2px 20px;
     padding: 0px 15px;
     background-color: white;
-    border-left: 5px solid #224d99;
-    border-bottom: 1px solid #224d99;
+    border-left: 5px solid #34495e;
+    border-bottom: 1px solid #34495e;
     border-radius: 0 0 10px 10px;
 
 }
@@ -972,7 +983,7 @@ textarea.comment
 {
     display: block;
     margin: 5px auto;
-    border-color: #224d99;
+    border-color: #7f8c8d;
     font-family: verdana, monospace;
 }
 
@@ -1004,7 +1015,7 @@ table.article
 div.fadehover {
 
     position: absolute;
-
+    margin-top: 10px;
     margin-left: 20px;
     border-collapse: collapse;
 }
@@ -1024,11 +1035,11 @@ img.b {
 }
 
 input.searchBar {
-    -moz-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    -webkit-box-shadow:inset 0px -50px 0px 0px #2773d0;
-    box-shadow:inset 0px -50px 0px 0px #2773d0;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf) );
-    background:-moz-linear-gradient( center top, #63b8ee 5%, #468ccf 100% );
+    -moz-box-shadow:inset 0px -50px 0px 0px #34495e;
+    -webkit-box-shadow:inset 0px -50px 0px 0px #34495e;
+    box-shadow:inset 0px -50px 0px 0px #34495e;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #34495e), color-stop(1, #468ccf) );
+    background:-moz-linear-gradient( center top, #34495e 5%, #468ccf 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf');
     background-color:#63b8ee;
     -webkit-border-top-left-radius:10px;
@@ -1051,7 +1062,7 @@ input.searchBar {
     font-size:20px;
 
     font-style:normal;
-    height:38px;
+    height:40px;
     line-height:30px;
     width:340px;
     text-decoration:none;
@@ -1084,22 +1095,3 @@ div.rec
 }
 
 
-.demo select {
-    border: 0 !important;  /*Removes border*/
-    -webkit-appearance: none;  /*Removes default chrome and safari style*/
-    -moz-appearance: none; /* Removes Default Firefox style*/
-    background: #0088cc url(img/select-arrow.png) no-repeat 90% center;
-    width: 100px; /*Width of select dropdown to give space for arrow image*/
-    text-indent: 0.01px; /* Removes default arrow from firefox*/
-    text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
-    color: #FFF;
-    border-radius: 15px;
-    padding: 5px;
-    box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
-}
-.demo select.balck {
-    background-color: #000;
-}
-.demo select.option3 {
-    border-radius: 10px 0;
-}

@@ -9,6 +9,8 @@ $post = strip_tags($_GET['post']);
 $name = $_SESSION['username'];
 $me = $_SESSION['me'];
 
+$admin = $_SESSION['admin'];
+
 
 $db = dbConnect();
 $send = $_POST['send'];
@@ -25,7 +27,10 @@ if($send)
     $rec = $result->num_rows;
     $result->free();
 
-    if($rec > 0);
+    if($rec > 0)
+    {
+        $error = "You already recommended this article to " . getName($to);
+    }
     else
     {
         $stmt = "INSERT INTO rec (id, toId, fromId, title, recDate, articleId) VALUES ('', '" . $to . "','" . $from . "', '" . $title . "', SYSDATE(), '" . $post . "')";
@@ -64,9 +69,9 @@ $db->close();
 <body>
 <div class="site">
 
-    <div class="spacer" style="height: 20px;">
-        <?
-        logo();
+    <div class="spacer" >
+        <?php
+            logo();
         ?>
         <div class="ajax">
             <form  action="index.php" method="POST" enctype="multipart/form-data">
@@ -89,8 +94,8 @@ $db->close();
         </div>
     </div>
 
-    <?
-    buildMenu();
+    <?php
+        buildMenu();
     ?>
 
     <div class="spacer" style="height: 20px"></div>
@@ -99,7 +104,7 @@ $db->close();
         <div class="innerbody">
 
 
-        <?
+    <?php
         $db = dbConnect();
         $stmt = "SELECT * FROM articles WHERE articleId='".$post."'";
         $result = $db->query($stmt);
@@ -113,8 +118,6 @@ $db->close();
         echo "<a target='_blank' class='rss' href='". $row['link'] ."'>\n";
         echo "" . $row['title'] . "</a></h2>\n";
         echo "<p class='descriptionPost'>" . $row['description'] . "</p>\n";
-
-
         echo "<table border='0px' style='background-color:#ffffff' width='100%' cellpadding='0' cellspacing='3'>";
         echo "<tr style='font-family: verdana, monospace; padding-top: 0; padding-bottom: 0px;'>";
         echo "<td  style='font-family: verdana, monospace; width: 300px; border:0;'>";
@@ -125,17 +128,14 @@ $db->close();
         echo "<td  style='font-family: verdana, monospace; width: 100px; height: 30px; border: 0;'>";
         $result->free();
 
-
+    //make sure the article isn't already saved by the user and the user is logged in
         $title = $row['title'];
         $stmt = "SELECT title FROM saved WHERE (title='".$title."' AND userName='".$name."' )";
         $result = $db->query($stmt);
         $num = $result->num_rows;
         $result->free();
 
-
-
-        //make sure the article isn't already saved and a user is logged in
-        if($num < 1 && $name)
+        if($num < 1 and $name and !$admin)
         {
             echo "<form action='saveActions.php' method='POST'>\n";
             echo "<input type='hidden' name='post' value=". $post . ">\n";
@@ -154,7 +154,7 @@ $db->close();
         {
             echo "    <p>";
             echo "<div class='rec'>";
-            echo "    <h2 class='as'>Recommend:</h2>";
+            echo "    <h2 class='rec'>Recommend:</h2>";
             echo "   <table style='background-color: #ffffff; width: 400px; height: 20px; border-radius: 0;'>";
             echo "       <tr>";
             echo "           <td style='height: 20px; width: 160px;'>";
@@ -162,7 +162,6 @@ $db->close();
             echo "<form action='' method='POST'>";
             echo "<select class='demo' name='to' style='width: 154px;'>";
 
-            $db = dbConnect();
             $stmt = "SELECT * FROM friends WHERE user1='". $me."' OR user2='". $me."'";
 
             $result = $db->query($stmt);
@@ -172,7 +171,6 @@ $db->close();
                     if($rows['user1'] == $me)
                     {
                     $f = $rows['user2'];
-
                     }
                     else
                     {
@@ -190,12 +188,11 @@ $db->close();
             echo "<input type='hidden' name='articleId' value='".$post."'/>";
             echo "<input type='hidden' name='title' value='".$title."'/>";
             echo "<input type='hidden' name='link' value='".$link."'/>";
-
-
-
             echo "                    <input type='submit' name='send' class='save'  value='Send'>";
+            echo "<td>";
+            echo "<h4>" . $error . "</h4>\n";
+            echo "</td>";
             echo "                </td>";
-
             echo "            </tr>";
             echo "        </table>";
             echo "</form>";
@@ -256,18 +253,21 @@ $db->close();
                 echo "    <h3 class='date'> on " . date("n/j/Y",strtotime($row['comDate'])) . " at " . date("g:i a",strtotime($row['comDate'])) . "</h3>\n";
 
                 echo "        </td>\n";
-                echo "    </tr>\n";
-                echo "</table>\n";
-                echo "    <p class='comment' style='padding-top: 0;'>" . $row['com'] . "</p>\n";
+                echo "<td>";
                 //TODO delete button
                 if($_SESSION['admin'])
                 {
                     echo "<form style='display: inline;' action='commentActions.php' method='POST'>\n";
                     echo "<input type='hidden' name='comId' value='". $row['comId'] . "'>\n";
-                    echo "<input type='hidden' name='articleId' value='". $post . "'>\n";
+                    echo "<input type='hidden' name='post' value='". $post . "'>\n";
                     echo "<input type='submit' name='delete' class='delete' value='Delete'>";
-                    //echo "</form>";
+                    echo "</form>";
                 }
+                echo "</td>";
+                echo "    </tr>\n";
+                echo "</table>\n";
+                echo "    <p class='comment' style='padding-top: 0;'>" . $row['com'] . "</p>\n";
+
                 echo "    </p>\n";
                 echo "</div>\n";
             }
@@ -297,7 +297,7 @@ $db->close();
             echo "    <td><textarea class='comment' rows='5' cols='80' style='font-family: verdana, monospace' name='comment'></textarea>";
             echo "<input type='hidden' name='post' value=". $post . "> </td>\n</tr>\n";
             echo "<tr>\n";
-            echo "    <td class='article' style='float: right;'><input type='submit' name='submit' class='button' value='Post'></td>\n";
+            echo "    <td class='article' style='float: right;'><input type='submit' name='submit' class='button' value='Comment'></td>\n";
             echo "</tr>\n";
             echo "</table>\n";
             echo "</form>\n";
@@ -308,7 +308,7 @@ $db->close();
             echo "<h2 class='as'>You Must Be Logged In to Comment</h2>\n";
             echo "</div>\n";
         }
-        ?>
+    ?>
 
     </div>
 </div>

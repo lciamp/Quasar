@@ -127,7 +127,7 @@ $db->close();
 
 			<div class="site">
 
-                <div class="spacer" style="height: 20px;">
+                <div class="spacer">
                     <?
                     logo();
                     ?>
@@ -156,7 +156,7 @@ $db->close();
 		    buildMenu();
 		    ?>
 	
-			<div class="spacer" style="width:80px;"></div>
+			<div class="spacer" style="width:80px; height: 20px; "></div>
 			<div class="body">
         
 

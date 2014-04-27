@@ -43,7 +43,7 @@ if(!$name)
 <body>
 <div class="site">
 
-    <div class="spacer" style="height: 20px;">
+    <div class="spacer">
         <?
         logo();
         ?>
@@ -119,13 +119,11 @@ if(!$name)
 
                     echo "<table width=100%>\n";
                     echo "<tr>\n";
-                    echo "<td width='540px;'>\n";
+                    echo "<td width='840px;'>\n";
                     echo "<h2 class='titleSaved' style='display: inline'>\n";
-                    echo "<a class='rec' href=post.php?post=". $rows['articleId'].">". substr($rows['title'],0, 45) ."</a></h2>\n";
+                    echo "<a class='rec' href=post.php?post=". $rows['articleId'].">". substr($rows['title'],0, 70) ."</a></h2>\n";
                     echo "</td>\n";
-                    echo "<td width='300px;'>\n";
-                    echo "<h3 class='saved' style='display: inline'>on: " . date("n/j/Y", strtotime($rows['recDate'])) . " at " . date("g:i a",strtotime($rows['recDate'])) . "</h3>\n";
-                    echo "</td>\n";
+
                     echo "<td>\n";
                     echo "<form style='display: inline;' action='deleteRec.php' method='POST'>\n";
                     echo "<input type='hidden' name='articleId' value='". $rows['articleId'] . "'>\n";
