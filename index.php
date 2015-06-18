@@ -1,5 +1,6 @@
 <?php
-// import config.php, where we are keeping our functions
+error_reporting(E_ALL ^ E_NOTICE);
+
 require "config.php";
 
 session_start();
@@ -50,10 +51,23 @@ if(isset($_POST['search']))
 	$showResSearch = $_POST['search'];
 	$searchtxt = $_POST['searchBar'];
 	$searchtxt = mysql_real_escape_string(strip_tags($searchtxt));
-    $searchtxt1 = "% ".$searchtxt." %";
+	$words = explode(" ", $searchtxt);
+	$stmt = "SELECT * FROM ARTICLES WHERE ";
+	for($i = 0; $i < count($words) - 1; $i++)
+	{
+		$stmt = $stmt . "title like '% ".$words[$i]." %' or title like '% ".$words[$i]." %' or title like '%".$words[$i]." %' or";
+		$stmt = $stmt . "description like '% ".$words[$i]." %' or description like '% ".$words[$i]." %' or description like '%".$words[$i]." %' or";
+	}
+	$stmt = $stmt . "description like '% ".$words[count($words) - 1]." %' or description like '% ".$words[count($words) - 1]." %' or description like '%".$words[count($words) - 1]." %' ";
+    $stmt = $stmt . "ORDER BY pubDate DESC";
+	
+/*	
+	$searchtxt1 = "% ".$searchtxt." %";
+	
     $searchtxt2 = $searchtxt." %";
 	$stmt = "SELECT * FROM ARTICLES WHERE title like '".$searchtxt1."' or description like '".$searchtxt1."' or title like '".$searchtxt2."' or description like '".$searchtxt2."' ORDER BY pubDate DESC";
-    $i =1;
+*/
+	$i =1;
 }
 
 ?>
@@ -62,10 +76,23 @@ if(isset($_POST['search']))
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
     <meta name='viewport' content='minimum-scale=0.98; maximum-scale=5; inital-scale=0.98; user-scalable=no; width=1024'>
     <script type='text/javascript' src='js/jquery.js'></script>
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
 
     <script type='text/javascript'>
         $(document).ready(function()
@@ -165,6 +192,7 @@ if(isset($_POST['search']))
                             echo strip_tags($rows['description']) . "\n";
                         echo "</div>\n";
                     }
+					$results->free();
                 }
         //getRSS();
         //getPics();

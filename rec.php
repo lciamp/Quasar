@@ -1,10 +1,10 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+
 // import config.php, where we are keeping our functions
 require "config.php";
 
-// TO BE USED LATER ONCE THE DATABASE IS SET UP
-//
-// connect to server and select database
+
 session_start();
 
 $name = $_SESSION['username'];
@@ -21,8 +21,21 @@ if(!$name)
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <script type='text/javascript' src='js/jquery.js'></script>
 
     <script type='text/javascript'>
@@ -44,7 +57,7 @@ if(!$name)
 <div class="site">
 
     <div class="spacer">
-        <?
+        <?php
         logo();
         ?>
         <div class="ajax">
@@ -78,7 +91,7 @@ if(!$name)
         <p style="text-align: center; margin-top:0;">
             <?php
             $db = dbConnect();
-            $stmt = "SELECT * FROM rec WHERE toId='". $me."'";
+            $stmt = "SELECT * FROM rec WHERE toId='". $me."' ORDER BY recDate DESC";
             $result = $db->query($stmt);
             $num = $result->num_rows;
             $result->free();
@@ -90,7 +103,7 @@ if(!$name)
 
 
 
-                $stmt = "SELECT * FROM rec WHERE toId='". $me."'";
+                $stmt = "SELECT * FROM rec WHERE toId='". $me."' ORDER BY recDate DESC";
 
                 $result = $db->query($stmt);
 

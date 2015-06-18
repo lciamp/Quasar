@@ -1,5 +1,5 @@
 <?php
-// import config.php, where we are keeping our functions
+error_reporting(E_ALL ^ E_NOTICE);
 
 require "config.php";
 
@@ -47,8 +47,21 @@ $db->close();
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <script type='text/javascript' src='js/jquery.js'></script>
 
     <script type='text/javascript'>
@@ -124,7 +137,7 @@ $db->close();
         echo "&nbsp&nbsp&nbspPosted by: <strong><a target='_blank' class='comments' href='http://www.". $row['site'] . "'>" . $row['site'] . "</a>\n";
         echo "</strong> on " . date("n/j/Y",strtotime($row['pubDate'])) . " at " . date("g:i a",strtotime($row['pubDate'])). "</tb>";
 
-        echo "<td  style='font-family:verdana, monospace; width: 100px; border: 0;'></tb>";
+        echo "<td  style='font-family:verdana, monospace; width: 100px; border: 0;'></td>";
         echo "<td  style='font-family: verdana, monospace; width: 100px; height: 30px; border: 0;'>";
         $result->free();
 
@@ -170,11 +183,11 @@ $db->close();
             {
                     if($rows['user1'] == $me)
                     {
-                    $f = $rows['user2'];
+                    	$f = $rows['user2'];
                     }
                     else
                     {
-                    $f = $rows['user1'];
+                   		$f = $rows['user1'];
                     }
                 echo "<option value='".$f."'>" . getName($f). "</option>";
             }
@@ -238,20 +251,19 @@ $db->close();
                 $stmt = "SELECT profThumb FROM MEMBERS WHERE userName='". $row['userName'] . "'";
                 $pics = $db->query($stmt);
                 $pic = $pics->fetch_assoc();
+
                 echo "<table>\n";
                 echo "    <tr>\n";
                 echo "        <td style='vertical-align: top;'>\n";
                 echo "<a href='profile.php?username=" . $row['userName'] . "'>";
                 echo formatImage($pic['profThumb'], "profile picture");
                 echo "</a>\n";
-
                 echo "        </td>\n";
                 echo "        <td style='vertical-align: middle; padding-top: 0; padding-bottom: 6px;'>\n";
                 echo "<a class='friend' href='profile.php?username=" . $row['userName'] . "'>";
                 echo "    &nbsp<h2 class='comment'>". $row['userName'] . "</h2>\n";
                 echo "</a>\n";
                 echo "    <h3 class='date'> on " . date("n/j/Y",strtotime($row['comDate'])) . " at " . date("g:i a",strtotime($row['comDate'])) . "</h3>\n";
-
                 echo "        </td>\n";
                 echo "<td>";
                 //TODO delete button
@@ -269,6 +281,7 @@ $db->close();
                 echo "    <p class='comment' style='padding-top: 0;'>" . $row['com'] . "</p>\n";
 
                 echo "    </p>\n";
+                echo "<a href='#' class='rss' style='font-family: verdana, monospace;'>Reply</a>";
                 echo "</div>\n";
             }
             $results->free();

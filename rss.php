@@ -587,7 +587,6 @@ for($i = 0; $i < count($stack); $i++)
     {
         $link = $item[$j]->link;
         $title = $item[$j]->title;
-        $checkTitle = md5($item[$j]->title);
         $site = $source[$i];
         $date = date("Y-m-j G:i:s",strtotime($item[$j]->pubDate));
         $description = substr(strip_tags($item[$j]->description),0,250);
@@ -646,7 +645,6 @@ for($i = 0; $i < count($stack); $i++)
     {
         $link = $item[$j]->link;
         $title = $item[$j]->title;
-        $checkTitle = md5($item[$j]->title);
         $site = $source[$i];
         $date = date("Y-m-j G:i:s",strtotime($item[$j]->pubDate));
         $description = substr(strip_tags($item[$j]->description),0,250);
@@ -700,7 +698,6 @@ for($i = 0; $i < count($stack); $i++)
     {
         $link = $item[$j]->link;
         $title = $item[$j]->title;
-        $checkTitle = md5($item[$j]->title);
         $site = $source[$i];
         $date = date("Y-m-j G:i:s",strtotime($item[$j]->pubDate));
         $description = substr(strip_tags($item[$j]->description),0,250);
@@ -752,7 +749,6 @@ for($i = 0; $i < count($stack); $i++)
     {
         $link = $item[$j]->link;
         $title = $item[$j]->title;
-        $checkTitle = md5($item[$j]->title);
         $site = $source[$i];
         $date = date("Y-m-j G:i:s",strtotime($item[$j]->pubDate));
         $description = substr(strip_tags($item[$j]->description),0,250);

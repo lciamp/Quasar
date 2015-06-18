@@ -1,5 +1,6 @@
 <?php
-// import config.php, where we are keeping our functions
+error_reporting(E_ALL ^ E_NOTICE);
+
 require "config.php";
 
 session_start();
@@ -51,7 +52,7 @@ session_start();
         </div>
     </div>
 
-    <?
+    <?php
     buildMenu();
     ?>
 
@@ -59,7 +60,7 @@ session_start();
 
     <div class="body">
 
-        <?
+        <?php
         echo "<h1 class='page'>You Need To Be Logged In For This</h1>\n";
         ?>
 

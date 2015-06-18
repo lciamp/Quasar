@@ -1,5 +1,6 @@
 <?php
 //edit profile page
+error_reporting(E_ALL ^ E_NOTICE);
 
 //get the config file
 require_once "images.php";
@@ -75,12 +76,12 @@ if($edit)
         else
         {
 
-            $image = new ImageHandler("/quasar/profilePics/");
+            $image = new ImageHandler("/profilePics/");
 
             $imgPath = $image->processUploadedImage($fileInfo);
             //echo $imgPath;
 
-            $Thumb = new ThumbNailer("/quasar/thumbNails/");
+            $Thumb = new ThumbNailer("/thumbNails/");
             //print_r($Thumb);
 
             $thumbPath = $Thumb->makeThumb($imgPath);
@@ -122,8 +123,21 @@ $db->close()
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <link rel="shortcut icon" href="img/favicon.ico" >
 </head>
 
@@ -131,7 +145,7 @@ $db->close()
 <div class="site">
 
     <div class="spacer" >
-        <?
+        <?php
         logo();
         ?>
         <div class="ajax">
@@ -185,7 +199,7 @@ $db->close()
                         First Name:
                     </td>
                     <td align="right" width="25" class="login">
-                        <input type="text" name="fName" maxlength="25" value=<? echo htmlentities($formFname) ?>>
+                        <input type="text" name="fName" maxlength="25" value=<?php echo htmlentities($formFname) ?>>
                     </td>
                 </tr>
                 <tr>
@@ -193,7 +207,7 @@ $db->close()
                         Last Name:
                     </td>
                     <td align="left" width="25" class="login">
-                        <input type="text" name="lName" maxlength="25" value=<? echo htmlentities($formLname) ?>>
+                        <input type="text" name="lName" maxlength="25" value=<?php echo htmlentities($formLname) ?>>
                     </td>
                 </tr>
                 <tr>
@@ -201,7 +215,7 @@ $db->close()
                         Location:
                     </td>
                     <td align="right" width="25" class="login">
-                        <input type="text" name="location" maxlength="25" value=<? echo htmlentities($formLocation) ?>>
+                        <input type="text" name="location" maxlength="25" value=<?php echo htmlentities($formLocation) ?>>
                     </td>
                 </tr>
                 <!-- table row for email -->
@@ -210,7 +224,7 @@ $db->close()
                         Email:
                     </td>
                     <td align="left" width="25" class="login">
-                        <input type="text" name="email" maxlength="25" value=<? echo htmlentities($formEmail) ?>>
+                        <input type="text" name="email" maxlength="25" value=<?php echo htmlentities($formEmail) ?>>
                     </td>
                 </tr>
                 <!-- Table row to enter the picture -->

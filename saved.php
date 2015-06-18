@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+
 // import config.php, where we are keeping our functions
 require "config.php";
 
@@ -14,8 +16,6 @@ if(!$name)
     header("location: nope.php");
 }
 
-
-
 $db = dbConnect();
 
 
@@ -25,8 +25,21 @@ $db = dbConnect();
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <script type='text/javascript' src='js/jquery.js'></script>
 
     <script type='text/javascript'>
@@ -48,12 +61,12 @@ $db = dbConnect();
 <div class="site">
 
     <div class="spacer" >
-        <?
+        <?php
         logo();
         ?>
         <div class="ajax">
             <form  action="index.php" method="POST" enctype="multipart/form-data">
-                <table border="0" style="color: #ffffff; margin-left:0px;">
+                <table border="0" style="color: #ffffff; margin-left:0;">
                     <tr>
                         <!-- <td>
                             <input type="hidden" name="searched" value="searched" />

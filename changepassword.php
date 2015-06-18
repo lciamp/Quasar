@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 
 require_once "config.php";
 
@@ -103,10 +104,23 @@ $db->close();
 		<html>
 		<head>
 		    <title>Quasar</title>
-		    <link rel="stylesheet" href="css/style.css" type="text/css">
+            <?php
+            if(!$_SESSION['admin'])
+            {
+                echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+            }
+            else
+            {
+                echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+            }
+            ?>
 			<script language=Javascript type="text/javascript" src="Javascript/MenuMethods.js"></script>
 
 		    <meta charset="UTF-8">
+			<?php
+			if(isset($_SESSION['username']))
+				echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+			?>
             <script type='text/javascript' src='js/jquery.js'></script>
 
             <script type='text/javascript'>
@@ -128,7 +142,7 @@ $db->close();
 			<div class="site">
 
                 <div class="spacer">
-                    <?
+                    <?php
                     logo();
                     ?>
                     <div class="ajax">

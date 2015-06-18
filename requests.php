@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+
 // import config.php, where we are keeping our functions
 require "config.php";
 
@@ -24,7 +26,17 @@ $db = dbConnect();
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
     <meta name='viewport' content='minimum-scale=0.98; maximum-scale=5; inital-scale=0.98; user-scalable=no; width=1024'>
     <script type='text/javascript' src='js/jquery.js'></script>
@@ -71,7 +83,7 @@ $db = dbConnect();
         </div>
     </div>
 
-    <?
+    <?php
     buildMenu();
     ?>
 
@@ -80,60 +92,59 @@ $db = dbConnect();
     <div class="body">
         <div class="innerbody">
             <div class="article" style="border-bottom: 0;">
-            <?
-            $userName = $_SESSION['username'];
+                <?
+                $userName = $_SESSION['username'];
 
-            $stmt = "SELECT userId from MEMBERS WHERE userName='".$userName."'";
-            $result = $db->query($stmt);
-            $row = $result->fetch_assoc();
-            $me = $row['userId'];
-            $result->free();
-
-
-            $stmt = "SELECT * FROM friendReq WHERE toId='".$me."'";
-            $result = $db->query($stmt);
-            $req = $result->num_rows;
+                $stmt = "SELECT userId from MEMBERS WHERE userName='".$userName."'";
+                $result = $db->query($stmt);
+                $row = $result->fetch_assoc();
+                $me = $row['userId'];
+                $result->free();
 
 
+                $stmt = "SELECT * FROM friendReq WHERE toId='".$me."'";
+                $result = $db->query($stmt);
+                $req = $result->num_rows;
 
-            if($req < 1 )
-            {
-                echo "<h1 class='page'>No Friend Requests Right Now</h1>\n";
-            }
-            else
-            {
-                echo "    <h2 class='title' style='margin-top: 10px;'>Requests:</h2>\n";
-                while($row = $result->fetch_assoc())
+
+
+                if($req < 1 )
                 {
-
-                    //echo "<div class='articleSaved' style='margin: 5px;'>";
-                    $name = getName($row['fromId']);
-
-                    echo "<table>\n";
-                    echo "    <tr>\n";
-                    echo "        <td style='vertical-align: top;'>\n";
-
-                    $stmt = "SELECT profThumb FROM MEMBERS WHERE userName='".$name."'";
-                    $pics = $db->query($stmt);
-                    $pic = $pics->fetch_assoc();
-                    echo "<a href='profile.php?username=" . $name . "'>";
-                    echo formatImage($pic['profThumb'], "profile picture");
-                    echo "</a>";
-
-                    echo "        </td>\n";
-                    echo "        <td style='vertical-align: middle;'>\n";
-
-                    echo  "<a class='friend' href='profile.php?username=" . $name . "'><h2 class='friend' style='margin-bottom: 0; padding-top: 2px;'>" . $name . "</h2></a></br>";
-                    echo "        </td>\n";
-                    echo "    </tr>\n";
-                    echo "</table>\n";
-
+                    echo "<h1 class='page'>No Friend Requests Right Now</h1>\n";
                 }
-            }
-            $result->free();
-            $db->close();
-            ?>
-                </div>
+                else
+                {
+                    echo "    <h2 class='title' style='margin-top: 10px;'>Requests:</h2>\n";
+                    while($row = $result->fetch_assoc())
+                    {
+
+                        $name = getName($row['fromId']);
+
+                        echo "<table style='margin-left: 20px;'>\n";
+                        echo "    <tr>\n";
+                        echo "        <td style='vertical-align: top;'>\n";
+
+                        $stmt = "SELECT profThumb FROM MEMBERS WHERE userName='".$name."'";
+                        $pics = $db->query($stmt);
+                        $pic = $pics->fetch_assoc();
+                        echo "<a href='profile.php?username=" . $name . "'>";
+                        echo formatImage($pic['profThumb'], "profile picture");
+                        echo "</a>";
+
+                        echo "        </td>\n";
+                        echo "        <td style='vertical-align: middle;'>\n";
+
+                        echo  "<a class='friend' href='profile.php?username=" . $name . "'><h2 class='friend' style='margin-bottom: 0; padding-top: 2px; display: inline;'>" . $name . "</h2><h2 class='friend' style='font-size: 14px; display: inline;'>Wants to be your Friend</h2></a></br>";
+                        echo "        </td>\n";
+                        echo "    </tr>\n";
+                        echo "</table>\n";
+
+                    }
+                }
+                $result->free();
+                $db->close();
+                ?>
+            </div>
         </div>
     </div>
 

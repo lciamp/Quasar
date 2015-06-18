@@ -7,7 +7,7 @@ session_start();
 
 $post = $_POST['post'];
 $name = $_SESSION['username'];
-$comment = strip_tags($_POST['comment']);
+$comment = $_POST['comment'];
 $buttonPress = $_POST['submit'];
 
 if(!$name)
@@ -23,7 +23,7 @@ if($buttonPress)
     {
         $post = $db->real_escape_string(strip_tags($post));
         $name =  $db->real_escape_string(strip_tags($name));
-        $comment =  $db->real_escape_string(strip_tags($comment));
+        $comment =  $db->$comment;
         $stmt = "INSERT INTO COMMENTS (comId, articleId, userName, com, comDate) VALUES (NULL, '".$post."', '".$name."', '".$comment."', NOW())";
         $db->query($stmt);
         //it worked, back to the post

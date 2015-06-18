@@ -1,20 +1,22 @@
 <?php
-// import config.php, where we are keeping our functions
+
+#admin.php
+
+
+error_reporting(E_ALL ^ E_NOTICE);
+
 require "config.php";
 
 session_start();
 
-
-
 $name = $_SESSION['username'];
 $admin = $_SESSION['admin'];
 
+$delete = $_POST['delete'];
+$reset = $_POST['reset'];
+
 
 $db = dbConnect();
-
-$delete = $_POST['delete'];
-$user = $db->real_escape_string($_POST['username']);
-
 $create = $_POST['create'];
 $newUser = $db->real_escape_string($_POST['newUser']);
 $password = $db->real_escape_string($_POST['password']);
@@ -23,13 +25,13 @@ $db->close();
 
 if($create)
 {
-    $db =dbConnect();
+    $db = dbConnect();
     $stmt = "SELECT userName FROM members WHERE userName='".$newUser."'";
     $namecheck = $db->query($stmt);
 
     $count = $namecheck->num_rows;
 
-    $namecheck->close();
+    $namecheck->free();
 
     if($count > 0)
     {
@@ -68,43 +70,86 @@ if($create)
 
 }
 
-
-
-
 if($delete)
 {
+
     $db = dbConnect();
+    $user = $db->real_escape_string($_POST['delUser']);
+    //check for user name
+    $namecheck = $db->query("SELECT userName FROM members WHERE userName='".$user."'");
 
-    $stmt =  "SELECT userId FROM MEMBERS WHERE userName='".$user ."'";
+    $count = $namecheck->num_rows;
 
-    $result = $db->query($stmt);
+    //if the username is already used
+    if($count == 0)
+    {
+        //let the user know that the name is taken
+        $error2 =  "No User By That Name";
+    }
+    else
+    {
 
-    $id = $result->fetch_assoc();
+        $stmt =  "SELECT userId FROM MEMBERS WHERE userName='".$user ."'";
 
-    $id = $id['userId'];
+        $result = $db->query($stmt);
 
-    //delete form friends
-    $stmt = "DELETE FROM friends WHERE user1='".$id."' OR user2='".$id."'";
-    $db->query($stmt);
+        $id = $result->fetch_assoc();
 
-    //delete from friend requests
-    $stmt = "DELETE FROM friendRew WHERE fromId='".$id."' OR toId='".$id."'";
-    $db->query($stmt);
+        $id = $id['userId'];
 
-    //delete from members
-    $stmt = "DELETE FROM MEMBERS WHERE userName='". $user . "'";
-    $db->query($stmt);
+        //delete from friends
+        $stmt = "DELETE FROM friends WHERE user1='".$id."' OR user2='".$id."'";
+        $db->query($stmt);
 
-    //delete all comments
-    $stmt = "DELETE FROM comments WHERE userName='". $user ."'";
-    $db->query($stmt);
+        //delete from friend requests
+        $stmt = "DELETE FROM friendReq WHERE fromId='".$id."' OR toId='".$id."'";
+        $db->query($stmt);
 
-    //delete all saved
-    $stmt = "DELETE FROM saved WHERE userName='". $user ."'";
-    $db->query($stmt);
+        //delete from members
+        $stmt = "DELETE FROM MEMBERS WHERE userName='". $user . "'";
+        $db->query($stmt);
 
-    $db->close();
-    $error2 = $user . " Deleted";
+        //delete all comments
+        $stmt = "DELETE FROM comments WHERE userName='". $user ."'";
+        $db->query($stmt);
+
+        //delete all saved
+        $stmt = "DELETE FROM saved WHERE userName='". $user ."'";
+        $db->query($stmt);
+
+        $db->close();
+        $error2 = $user . " Deleted";
+    }
+}
+
+
+if($reset)
+{
+
+    $db = dbConnect();
+    $user = $db->real_escape_string($_POST['resUser']);
+    //check for user name
+    $namecheck = $db->query("SELECT userName FROM members WHERE userName='".$user."'");
+
+    $count = $namecheck->num_rows;
+
+    //check for user
+    if($count == 0)
+    {
+        //let the user know that the name is taken
+        $error3 =  "No User By That Name";
+    }
+    else
+    {
+
+        $stmt = "UPDATE members SET userPass='".md5("password")."' WHERE userName='".$user."'";
+
+        $db->query($stmt);
+
+
+        $db->close();
+        $error3 = $user . " Reset";
+    }
 }
 
 
@@ -173,8 +218,18 @@ if(isset($_POST['search']))
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <meta charset="UTF-8">
+    <?php
+
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
+   <meta charset="UTF-8">
     <meta name='viewport' content='minimum-scale=0.98; maximum-scale=5; inital-scale=0.98; user-scalable=no; width=1024'>
     <script type='text/javascript' src='js/jquery.js'></script>
     <script type='text/javascript' src='JavaScript/functions.js'></script>
@@ -260,7 +315,7 @@ if(isset($_POST['search']))
                     </tr>
                     <tr>
                         <td align="right" colspan="2" class="login">
-                            <input type="submit" name="create" class="button" value="Create" onclick="confirm('Are You Sure?')">
+                            <input type="submit" name="create" class="button" value="Create">
                         </td>
                     </tr>
                 </table>
@@ -280,38 +335,50 @@ if(isset($_POST['search']))
                         <td class="login">
                             User name:
                         </td>
-                        <td align="right" width="25" style="color:black" class="login">
 
-                            <select name="username" style="width: 154px;">
-                                <?php
+                        <?php
+                            echo "<td align='right' width='25' style='color:black' class='login'>";
+                            echo "<input autocomplete='off' type='text' name='delUser' maxlength='25' value=''/>";
+                            echo "</td>";
 
-                                $db = dbConnect();
+                        ?>
 
-                                $stmt = "SELECT userName FROM MEMBERS ORDER BY userName ";
-
-                                $result = $db->query($stmt);
-
-                                while($rows = $result->fetch_assoc())
-                                {
-                                    if($rows['userName'] == "admin");
-                                    else
-                                    {
-                                        echo "<option value='".$rows['userName']."'>".$rows['userName'] ."</option>";
-                                    }
-                                }
-
-
-                                ?>
-
-
-
-                            </select>
-                        </td>
                     </tr>
 
-                        <td align="right" colspan="2" class="login">
-                            <input type="submit" name="delete" class="unfriendButton" value="Delete" onclick="confirmSubmit()">
+                    <td align="right" colspan="2" class="login">
+                        <input type="submit" name="delete" class="unfriendButton" value="Delete">
+                    </td>
+                    </tr>
+                </table>
+            </form>
+            <form action="admin.php" method="POST">
+                <table border="0" width="64%" style="color: black">
+                    <tr>
+                        <div class="spacer" style="height:10px; width: 80px;"></div>
+                        <td class="login"><h1 class="del">Reset Password:</h1></td>
+                        <td><br/>
+                            <?php
+                            echo "<h4 class='admin'>" . $error3 . "</h4>\n";
+                            ?>
                         </td>
+                    </tr>
+                    <tr>
+                        <td class="login">
+                            User name:
+                        </td>
+
+                        <?php
+                        echo "<td align='right' width='25' style='color:black' class='login'>";
+                        echo "<input autocomplete='off' type='text' name='resUser' maxlength='25' value=''/>";
+                        echo "</td>";
+
+                        ?>
+
+                    </tr>
+
+                    <td align="right" colspan="2" class="login">
+                        <input type="submit" name="reset" class="unfriendButton" value="Reset">
+                    </td>
                     </tr>
                 </table>
             </form>

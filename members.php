@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+
 require "config.php";
 
 $name = $_SESSION['username'];
@@ -14,7 +16,17 @@ if(!$name)
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
     <meta name='viewport' content='minimum-scale=0.98; maximum-scale=5; inital-scale=0.98; user-scalable=no; width=1024'>
     <script type='text/javascript' src='js/jquery.js'></script>
@@ -70,19 +82,19 @@ if(!$name)
     <div class="body">
         <div class="innerbody" style="margin-left: 15px; width: 97%;">
 
-            <?
+            <?php
             $db = dbConnect();
 
-            $stmt = "SELECT profThumb, userName FROM MEMBERS ORDER BY userName";
+            $stmt = "SELECT isAdmin, profThumb, userName FROM MEMBERS ORDER BY userName";
             $result = $db->query($stmt);
             echo "    <h2 class='title' style='margin-top: 10px;'>Members:</h2>\n";
             while($rows = $result->fetch_assoc())
             {
                 if($rows['userName'] == $name);
-                if($rows['userName'] == "admin");
+                elseif($rows['isAdmin'] == 1);
                 else
                 {
-                    echo "<table style='margin-top: 20px;'>\n";
+                    echo "<table style='margin-top: 20px; margin-left: 20px;'>\n";
                     echo "    <tr>\n";
                     echo "        <td style='vertical-align: top;'>\n";
                     echo "<a href='profile.php?username=" . $rows['userName'] . "'>";

@@ -1,5 +1,6 @@
 <?php
-// import config.php, where we are keeping our functions
+error_reporting(E_ALL ^ E_NOTICE);
+
 require_once "config.php";
  
 // TO BE USED LATER ONCE THE DATABASE IS SET UP
@@ -17,7 +18,20 @@ $error = $_GET['error'];
     <title>Quasar</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <meta charset="UTF-8">
-    <script type='text/javascript' src='js/jquery.js'></script>
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
 
     <script type='text/javascript'>
         $(document).ready(function(){
@@ -38,7 +52,7 @@ $error = $_GET['error'];
 <body>
 <div class="site">
     <div class="spacer">
-        <?
+        <?php
         logo();
         ?>
         <div class="ajax">

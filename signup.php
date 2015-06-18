@@ -1,8 +1,8 @@
 <?php
-//Sign In / Sign up Page
+error_reporting(E_ALL ^ E_NOTICE);
 
 //get the config file
-require_once "config.php";
+require "config.php";
 //session start
 session_start();
 
@@ -13,13 +13,13 @@ $db = dbConnect();
 $signup = $_POST['signup'];
 
 //form data, strip tags of any html
-$fName =  strip_tags($_POST['fName']);    //first name
-$lName =  strip_tags($_POST['lName']);    //last name
-$location =  strip_tags($_POST['location']);    //location
-$email = strip_tags($_POST['email']);   //eamil
-$userName = strtolower(strip_tags($_POST['userName'])); //usrname
-$password = strip_tags($_POST['password']); //password
-$repassword = strip_tags($_POST['repassword']); //re-enter password
+$fName =  trim(strip_tags($_POST['fName']));    //first name
+$lName =  trim(strip_tags($_POST['lName']));    //last name
+$location =  trim(strip_tags($_POST['location']));    //location
+$email = trim(strip_tags($_POST['email']));   //eamil
+$userName = trim(strtolower(strip_tags($_POST['userName']))); //usrname
+$password = trim(strip_tags($_POST['password'])); //password
+$repassword = trim(strip_tags($_POST['repassword'])); //re-enter password
 
 
 //PRESSING THE SIGN UP BUTTON
@@ -141,7 +141,7 @@ if($signup)
 <body>
 <div class="site">
     <div class="spacer">
-        <?
+        <?php
             logo();
         ?>
         <div class="ajax">

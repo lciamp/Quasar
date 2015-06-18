@@ -1,5 +1,7 @@
 <?php
 //Sign In Page
+error_reporting(E_ALL ^ E_NOTICE);
+
 
 //get the config file
 require_once "config.php";
@@ -14,8 +16,8 @@ $db = dbConnect();
 $signin = $_POST['signin'];
 
 //form data, strip tags of any html
-$signinName = strtolower(strip_tags($_POST['signinname']));
-$signinPassword = strip_tags($_POST['signinpassword']);
+$signinName = trim(strtolower(strip_tags($_POST['signinname'])));
+$signinPassword = trim(strip_tags($_POST['signinpassword']));
 
 //PRESSING THE SIGN IN BUTTON
 if($signin)
@@ -39,7 +41,7 @@ if($signin)
             $me = $row['userId'];
 
 
-        // close results
+        // free results
 
         $result->free();
 
@@ -50,9 +52,12 @@ if($signin)
                 $_SESSION['username'] = $dbUserName;
                 $_SESSION['me'] =  $me;
                 if($row['isAdmin'] == 1)
+                {
                     $_SESSION['admin'] = true;
-                // back to home page
-                header("location: index.php");
+                    header("location: admin.php");
+                }
+                else
+                    header("location: index.php");
             }
             else // password error
                 $error = "Incorrect Password";
@@ -165,7 +170,7 @@ $db->close()
                                 User name:
                             </td>
                             <td align="right" width="25" style="color:black" class="login">
-                                <input autocomplete="off" type="text" name="signinname" maxlength="25" value="<?php echo "$username" ?>"/>
+                                <input autocomplete="off" type="text" name="signinname" maxlength="25" value="<?php echo $username ?>"/>
                             </td>
                         </tr>
                         <!-- table row for password -->

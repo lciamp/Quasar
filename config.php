@@ -38,7 +38,7 @@ function dbConnect()
     return $connection;
 }
 
-
+/*
 function getRSS()
 {
 
@@ -46,21 +46,11 @@ function getRSS()
     $stack = array();
     $source = array();
 
-    if($_GET['tag']== "movies")
-    {
-        $url = "http://www.fandango.com/rss/fandangomovieblog.rss";
+        $url = "http://www.formula1.com/rss/news/headlines.rss";
         $rss = simplexml_load_file($url);
-        $source1 = "fandango.com";
+        $source1 = "f1.com";
         array_push($source, $source1);
         array_push($stack, $rss);
-    }
-
-
-    $url2 = "http://www.huffingtonpost.com/feeds/verticals/entertainment/index.xml";
-    $rss = simplexml_load_file($url2);
-    $source2 = "huffingtonpost.com";
-    array_push($source, $source2);
-    array_push($stack, $rss);
 
 
 
@@ -70,6 +60,13 @@ function getRSS()
 
         for($j = 0; $j < 5; $j++)
         {
+            $pic = $stack[$j]->channel->image->url;
+            if($pic)
+            {
+                echo "<img src='". $pic ."'><br />";
+            }
+            else;
+
             echo "<div class='article'> ";
             echo "<h2 class='title'><a target='_blank' class='rss' href='" . $item[$j]->link ."'></br>";
             echo $item[$j]->title . "</a></h2>";
@@ -86,6 +83,7 @@ function getRSS()
         }
     }
 }
+*/
 
 // get rss function
 /*function getRSS()
@@ -265,16 +263,13 @@ function buildMenu()
                     $result = $db->query($stmt);
                     $req = $result->num_rows;
 
+					$a = "";
+					
                     if($req == 1 )
-                    {
-                        $a = $req . " Request";
-                        echo "                    <li><a href='". strip($signedIn[$i]) .".php'>". $a ."</a></li>\n";
-                    }
-                    elseif($req > 1)
-                    {
-                        $a = $req . " Requests";
-                        echo "                    <li><a href='". strip($signedIn[$i]) .".php'>". $a ."</a></li>\n";
-                    }
+					{	$a = $req . " Request";	}
+                    if($req > 1 or $req == 0)
+					{	$a = $req . " Requests"; }
+					echo "                    <li><a id='request' href='". strip($signedIn[$i]) .".php'>". $a ."</a></li>\n";
                     $db->close();
 
                 }
@@ -298,7 +293,7 @@ function buildMenu()
                         echo "                    <li><a href='". strip($signedIn[$i]) .".php'>". $a ."</a></li>\n";
 
                     }
-                    elseif($req >= 1)
+                    elseif($req > 1)
                     {
                         $a = $req . " Friends";
                         echo "                    <li><a href='". strip($signedIn[$i]) .".php'>". $a ."</a></li>\n";
@@ -338,7 +333,7 @@ function buildMenu()
                     {
 
                     }
-                    elseif($req >= 1)
+                    elseif($req > 1)
                     {
                         $a = $req . " Recommended";
                         echo "                    <li><a href='rec.php'>". $a ."</a></li>\n";
@@ -403,16 +398,30 @@ function logo()
 }
 
 function getName($id)
+    {
+        $db = dbConnect();
+        $stmt = "SELECT userName FROM MEMBERS WHERE userId='".$id."'";
+        $result = $db->query($stmt);
+        $name = $result->fetch_assoc();
+        $name = $name['userName'];
+        $result->free();
+        $db->close();
+
+        return $name;
+}
+
+function getUserId($uname)
 {
     $db = dbConnect();
-    $stmt = "SELECT userName FROM MEMBERS WHERE userId='".$id."'";
+    $stmt = "SELECT userId FROM MEMBERS WHERE userName='".$uname."'";
     $result = $db->query($stmt);
-    $name = $result->fetch_assoc();
-    $name = $name['userName'];
+    $id = $result->fetch_assoc();
+    $id = $id['userId'];
     $result->free();
     $db->close();
 
-    return $name;
+    return $id;
 }
+
 
 

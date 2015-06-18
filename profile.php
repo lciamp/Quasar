@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
+
 // import config.php, where we are keeping our functions
 require "config.php";
 
@@ -61,9 +63,22 @@ $result->free();
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
     <meta name='viewport' content='minimum-scale=0.98; maximum-scale=5; inital-scale=0.98; user-scalable=no; width=1024'>
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <script type='text/javascript' src='js/jquery.js'></script>
 
     <script type='text/javascript'>
@@ -84,7 +99,7 @@ $result->free();
 <div class="site">
 
     <div class="spacer" >
-        <?
+        <?php
         logo();
         ?>
         <div class="ajax">
@@ -117,7 +132,7 @@ $result->free();
 
     <div class="body">
 
-        <?
+        <?php
         if($num < 1)
         {
             echo "<h1 class='page'>User Does Not Exist</h1>\n";

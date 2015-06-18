@@ -1,7 +1,7 @@
 <?php
-// import config.php, where we are keeping our functions
+error_reporting(E_ALL ^ E_NOTICE);
+session_start();
 require "config.php";
-
 
 ?>
 <!DOCTYPE html>
@@ -9,8 +9,21 @@ require "config.php";
 <html>
 <head>
     <title>Quasar</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css"><!-- <a href="/Users/Costas/Downloads/quasar/config.php" id="" title="config">config</a> -->
+    <?php
+    if(!$_SESSION['admin'])
+    {
+        echo "<link rel='stylesheet' href='css/style.css' type='text/css'>";
+    }
+    else
+    {
+        echo "<link rel='stylesheet' href='css/admin.css' type='text/css'>";
+    }
+    ?>
     <meta charset="UTF-8">
+	<?php
+	if(isset($_SESSION['username']))
+		echo "<script type='text/javascript' src='JavaScript/updateFriendRequest.js'></script>";
+	?>
     <script type='text/javascript' src='js/jquery.js'></script>
 
     <script type='text/javascript'>
@@ -87,7 +100,7 @@ require "config.php";
             </h3>
             </br></br></br>
             <center>
-            <h3 class="us">Quasar was developed by Louis Ciampanelli, Costas Vhramis, and Michael Brown @ Iona College in 2014</h3>
+            <h3 class="us">Quasar was developed by Louis Ciampanelli, Costas Vrahimis, and Michael Brown @ Iona College in 2014</h3>
             </center>
 
         </div>
